@@ -30,15 +30,33 @@ def crossEntropy(h: list, c: list) -> float:
 """
 3a)
 """
-tree = DecisionTreeClassifier(criterion = "gini", max_depth = 5)
-
 # Load training data
 training = getXy("data/training.csv")
 X = training[0]
 y = training[1]
 
-tree.fit(X, y)
+gini = DecisionTreeClassifier(criterion = "gini", max_depth = 5)
+gini.fit(X, y)
 
 """
 3b)
 """
+# Load validation data
+validation = getXy("data/validation.csv")
+X_v = validation[0]
+y_v = validation[1]
+
+val_preds = gini.predict_proba(X_v)
+print(f"Cross entropy: {crossEntropy(val_preds, y_v)}") # log(0) error what the frick bro 81 instances like that
+
+"""
+3c) 
+"""
+info = DecisionTreeClassifier(criterion = "entropy", max_depth = 5)
+info.fit(X, y)
+
+"""
+3d)
+"""
+info_val_preds = info.predict_proba(X_v)
+print(f"Cross entropy: {crossEntropy(info_val_preds, y_v)}")
