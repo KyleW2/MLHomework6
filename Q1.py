@@ -1,3 +1,8 @@
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+
 from typing import Tuple
 from math import log
 from csv import reader
@@ -23,7 +28,7 @@ def crossEntropy(h: list, c: list) -> float:
     ce = 0
 
     for i in range(len(h)):
-        ce += c[i] * log(h[i][0]) + (1 - c[i]) * log(1 - h[i][0])
+        ce += c[i] * log(h[i][1]) + (1 - c[i]) * log(1 - h[i][1])
 
     return ce / -len(h)
 
@@ -60,14 +65,14 @@ print(f"Second model cross entropy: {crossEntropy(second_preds, y_v)}")
 """
  2c)
 """
-# Second network appears to preform better
+# First network appears to preform better
 # Combine training and validation
 X_b = X
 y_b = y
 X_b.extend(X_v)
 y_b.extend(y_v)
 
-new_network = MLPClassifier(hidden_layer_sizes = (10, 10), random_state = 1)
+new_network = MLPClassifier(hidden_layer_sizes = (20), random_state = 1)
 new_network.fit(X_b, y_b)
 
 testing = getXy("data/testing.csv")

@@ -5,7 +5,6 @@ from csv import reader
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import log_loss
 
-
 # Function for getting X and y from csv
 def getXy(csv: str) -> Tuple[list]:
     # Use pythons built-in csv parser
@@ -25,7 +24,7 @@ def crossEntropy(h: list, c: list) -> float:
     ce = 0
 
     for i in range(len(h)):
-        ce += c[i] * log(h[i][0]) + (1 - c[i]) * log(1 - h[i][0])
+        ce += c[i] * log(h[i][1]) + (1 - c[i]) * log(1 - h[i][1])
 
     return ce / -len(h)
 
